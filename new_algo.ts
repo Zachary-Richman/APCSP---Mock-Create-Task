@@ -30,19 +30,19 @@ export class Board {
         this.downCount = 0;
     }
 
-    initializeGrid(cols, rows) {
+    initializeGrid = (cols, rows) => {
         const empty_char = ""; // Define a default empty character
-        const grid = Array.from({length: cols}, () =>
+
+        return Array.from({length: cols}, () =>
             Array.from({length: rows}, () => ({
                 targetChar: empty_char,
                 indexDisplay: "",
                 value: "-"
             }))
         );
-        return grid;
     }
 
-    suggestCoords(word, GRID_WIDTH, GRID_HEIGHT) {
+    suggestCoords = (word, GRID_WIDTH, GRID_HEIGHT): Array<any> => {
         const coordList = [];
         for (let i = 0; i < word.length; i++) {
             for (let x = 0; x < GRID_HEIGHT; x++) {
@@ -61,11 +61,12 @@ export class Board {
         return coordList;
     }
 
-    checkFitScore(word, x, y, vertical, GRID_WIDTH, GRID_HEIGHT) {
-        const EMPTYCHAR = "";
-        let fitScore = 1;
+    checkFitScore = (word, x, y, vertical, GRID_WIDTH, GRID_HEIGHT): number => {
+        // scoring logic
+        const EMPTYCHAR: string = "";
+        let fitScore: number = 1;
 
-        for (let i = 0; i < word.length; i++) {
+        for (let i: number = 0; i < word.length; i++) {
             const xi = vertical ? x + i : x;
             const yi = vertical ? y : y + i;
 
@@ -84,7 +85,7 @@ export class Board {
         return fitScore;
     }
 
-    placeWord(word, clue, x, y, vertical, GRID_WIDTH, GRID_HEIGHT) {
+    placeWord = (word, clue, x, y, vertical, GRID_WIDTH, GRID_HEIGHT): boolean => {
         if (
             (vertical && x + word.length > GRID_HEIGHT) ||
             (!vertical && y + word.length > GRID_WIDTH)
@@ -111,17 +112,17 @@ export class Board {
         return true;
     }
 
-    isActiveWord(word) {
+    isActiveWord = (word) => {
         return this.activeWordList.some(activeWord => activeWord[word] === word);
     }
 
-    displayGrid() {
+    displayGrid = (): void => {
         console.table(
             this.grid.map(row => row.map(cell => cell.targetChar || "-"))
         );
     }
 
-    generateBoard(wordArray, GRID_WIDTH, GRID_HEIGHT, FIT_ATTEMPTS = 2) {
+    generateBoard = (wordArray, GRID_WIDTH, GRID_HEIGHT, FIT_ATTEMPTS: number = 2): void => {
         for (let seed = 0; seed < FIT_ATTEMPTS; seed++) {
             this.placeWord(wordArray[seed].word, wordArray[seed].clue, 0, 0, false, GRID_WIDTH, GRID_HEIGHT);
 
