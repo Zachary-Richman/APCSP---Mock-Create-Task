@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    // ... other compiler options
+    "allowSyntheticDefaultImports": true
+  }
+}

@@ -136,3 +136,5 @@ dist
 ./node_modules
 *.replit
 replit.nix
+/nyt_crosswords
+.idea

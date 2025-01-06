@@ -1,3 +1,7 @@
+/*
+    THE BOARD CREATION ALGORITHM
+ */
+
 interface wordList {
     number: number,
     clue: any,
@@ -8,9 +12,7 @@ interface wordList {
 }
 
 
-
-
-class Board {
+export class Board {
     public cols: number;
     public rows: number;
 
@@ -30,8 +32,8 @@ class Board {
 
     initializeGrid(cols, rows) {
         const empty_char = ""; // Define a default empty character
-        const grid = Array.from({ length: cols }, () =>
-            Array.from({ length: rows }, () => ({
+        const grid = Array.from({length: cols}, () =>
+            Array.from({length: rows}, () => ({
                 targetChar: empty_char,
                 indexDisplay: "",
                 value: "-"
@@ -47,10 +49,10 @@ class Board {
                 for (let y = 0; y < GRID_WIDTH; y++) {
                     if (this.grid[x][y].targetChar === word[i]) {
                         if (x - i + word.length - 1 < GRID_HEIGHT) {
-                            coordList.push({ x: x - i, y, vertical: true, score: 0 });
+                            coordList.push({x: x - i, y, vertical: true, score: 0});
                         }
                         if (y - i + word.length - 1 < GRID_WIDTH) {
-                            coordList.push({ x, y: y - i, vertical: false, score: 0 });
+                            coordList.push({x, y: y - i, vertical: false, score: 0});
                         }
                     }
                 }
@@ -160,10 +162,4 @@ class Board {
             }
         }
     }
-}
-
-function seedBoard(wordArray, GRID_WIDTH, GRID_HEIGHT) {
-    const gameBoard = new Board(GRID_WIDTH, GRID_HEIGHT);
-    gameBoard.generateBoard(wordArray, GRID_WIDTH, GRID_HEIGHT);
-    gameBoard.displayGrid();
 }
